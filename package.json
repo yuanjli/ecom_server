@@ -1,0 +1,31 @@
+{
+  "name": "ecom_server",
+  "version": "1.0.0",
+  "description": "ecom server site",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yuanjli/ecom_server.git"
+  },
+  "keywords": [
+    "ecom",
+    "server"
+  ],
+  "author": "yuanjli",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yuanjli/ecom_server/issues"
+  },
+  "homepage": "https://github.com/yuanjli/ecom_server#readme",
+  "dependencies": {
+    "bcrypt": "^3.0.1",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.4",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "mongoose": "^5.3.2"
+  }
+}
