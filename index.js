@@ -33,11 +33,11 @@ app.use('/auth', expressJWT({
 		{ url: '/auth/login', methods: ['POST'] },
 		{ url: '/auth/signup', methods: ['POST'] }
 	]	 // those two path are not protected. all the other routes are protected.
-}), require('./constrollers/auth'));
+}), require('./controllers/auth'));
 
 // wild card route
 app.get('*', function(req, res, next) {
 	res.send({ message: 'Unkown Route' });
 });
 
-app.listen(process.env.PORT || 3000);
+app.listen(process.env.PORT || 3002);
