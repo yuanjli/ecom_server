@@ -8,6 +8,12 @@ var userSchema = new mongoose.Schema({
     minlength: 1,
     maxlength: 99
   },
+  lastname: {
+    type:String,
+    required:true,
+    minlength: 1,
+    maxlength: 99
+  },
   email: { // TODO: Need to add email validation
     type: String,
     required: true,
@@ -20,6 +26,21 @@ var userSchema = new mongoose.Schema({
     required: true,
     minlength: 6,
     maxlength: 99
+  },
+  cart: {
+    type:Array,
+    default: []
+  },
+  history: {
+    type:Array,
+    default: []
+  },
+  role: {
+    type:Number,
+    default:0
+  },
+  token: {
+    type:String
   }
 });
 

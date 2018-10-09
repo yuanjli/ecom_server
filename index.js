@@ -1,6 +1,8 @@
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+
 const cors = require('cors');
 const expressJWT = require('express-jwt');
 const favicon = require('serve-favicon');
@@ -10,6 +12,7 @@ const path = require('path');
 // App instance
 const app = express();
 
+const mongoose = require('mongoose');
 
 // Set up middleware
 // app.use(favicon(path.join(__dirname, 'public', favicon.ico)));
