@@ -81,6 +81,7 @@ router.post('/signup', function(req, res) {
 // This is checked on a browser refresh
 // this is what is returned when client(react) queries for new user data 
 router.post('/me/from/token', function(req, res) {
+  console.log('this is hitting this route!');
   db.User.findById(req.user.id)
   .then(function(user){
     res.send({ user: user });

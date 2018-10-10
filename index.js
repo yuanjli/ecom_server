@@ -25,9 +25,9 @@ app.use(bodyParser.urlencoded({extended: false}));
 // Controllers
 app.use('/auth', expressJWT({
 	secret: process.env.JWT_SECRET,
-	gotToken: function fromRequest(req){
-		if(req.body.headers.Authorization.split('')[0] === 'Bearer'){
-			return req.body.headers.Autherization.split('')[1];
+	getToken: function fromRequest(req){
+		if(req.body.headers.Authorization.split(' ')[0] === 'Bearer'){
+			return req.body.headers.Authorization.split(' ')[1];
 		}
 		return null;
 	}
