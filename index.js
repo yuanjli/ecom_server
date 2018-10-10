@@ -23,7 +23,17 @@ app.use(cors());
 app.use(bodyParser.json({limit: '25mb'}));
 app.use(bodyParser.urlencoded({extended: false}));
 
-
+// Helper function
+function fromRequest(req){
+	console.log('BODY', req.body)
+	console.log('HEADERS', req.headers)
+	req.body.headers = req.body.headers || req.headers;
+	var authHeader = req.body.headers.Authorization || req.body.headers.authorization;
+	if(authHeader && authHeader.split(' ')[0] === 'Bearer'){
+		return authHeader.split(' ')[1];
+	}
+	return null;
+}
 
 
 // Handling routes for the styles: 
@@ -72,16 +82,26 @@ app.get('/service/product/brands', (req, res)=>{
 
 // handling routes for the products: 
 // ===========================================
-app.post('/service/product/item', (req, res)=>{
-	const product = new db.Product(req.body);
+app.post('/service/product/item', expressJWT({
+	secret: process.env.JWT_SECRET,
+	getToken: fromRequest
+}), (req, res)=>{
+	console.log('IN ROUTE', req.user)
+	if(req.user.role === 1){
+		var product = new db.Product(req.body);
 
-	product.save((err,doc)=>{
-		if(err) return res.json({success:false, err});
-		res.status(200).json({
-			success: true,
-			item: doc
+		product.save((err, doc)=>{
+			if(err) return res.json({success:false, err});
+			res.status(200).json({
+				success: true,
+				item: doc
+			})
 		})
-	})
+	}
+	else {
+		res.status(403).send({ success: false, message: 'You are not an admin'})
+	}
+	
 })
 
 app.get('/service/product/items', (req, res)=>{
@@ -99,12 +119,7 @@ app.get('/service/product/items', (req, res)=>{
 // ===========================================
 app.use('/auth', expressJWT({
 	secret: process.env.JWT_SECRET,
-	getToken: function fromRequest(req){
-		if(req.body.headers.Authorization.split(' ')[0] === 'Bearer'){
-			return req.body.headers.Authorization.split(' ')[1];
-		}
-		return null;
-	}
+	getToken: fromRequest
 }).unless({
 	path:[
 		{ url: '/auth/login', methods: ['POST'] },
@@ -122,3 +137,4 @@ app.get('*', function(req, res, next) {
 app.listen(process.env.PORT || 3002, ()=>{
 	console.log('Server is running at 3002')
 });
+

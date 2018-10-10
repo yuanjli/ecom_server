@@ -10,3 +10,4 @@ mongoose.set('userCreateIndex', true);
 module.exports.User = require('./user');
 module.exports.Brand = require('./brand');
 module.exports.Style = require('./style');
+module.exports.Product = require('./product');
