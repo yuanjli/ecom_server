@@ -26,6 +26,28 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 
 
+// Handling routes for the styles: 
+// ===========================================
+app.post('/service/product/style', (req, res)=>{
+	console.log('this is the type of the new model:', typeof(db.Style));
+	var style = new db.Style(req.body);
+
+	style.save((err, doc)=>{
+		if(err) return res.json({success:false, err});
+		res.status(200).json({
+			success: true,
+			style: doc
+		})
+	})
+})
+
+app.get('/service/product/styles', (req, res)=>{
+	db.Style.find({}, (err, styles)=>{
+		if(err) return res.status(400).send(err);
+		res.status(200).send(styles)
+	})
+})
+
 // handling routes for the brand: 
 // ===========================================
 app.post('/service/product/brand', (req, res)=>{
@@ -48,14 +70,32 @@ app.get('/service/product/brands', (req, res)=>{
 	})
 })
 
+// handling routes for the products: 
+// ===========================================
+app.post('/service/product/item', (req, res)=>{
+	const product = new db.Product(req.body);
+
+	product.save((err,doc)=>{
+		if(err) return res.json({success:false, err});
+		res.status(200).json({
+			success: true,
+			item: doc
+		})
+	})
+})
+
+app.get('/service/product/items', (req, res)=>{
+	db.Product.find({}, (err, products)=>{
+		if(err) return res.status(400).send(err);
+		res.status(200).send(products)
+	})
+})
 
 
 
 
 
-
-
-// Controllers/auth for handling user's routes
+// Controllers/auth routes for handling user:
 // ===========================================
 app.use('/auth', expressJWT({
 	secret: process.env.JWT_SECRET,

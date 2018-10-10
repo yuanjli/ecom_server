@@ -9,3 +9,4 @@ mongoose.set('userCreateIndex', true);
 // Include models from this folder
 module.exports.User = require('./user');
 module.exports.Brand = require('./brand');
+module.exports.Style = require('./style');
