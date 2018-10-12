@@ -198,6 +198,16 @@ app.get('/api/product/brands',(req,res)=>{
 })
 
 
+app.delete('/api/product/brand_by_id/:id',(req,res)=>{
+    Brand.findByIdAndDelete(req.query.id, (deleted) => {
+        res.send(deleted);
+    }).catch((err) => {
+        res.status(400).send('An error has occured');
+    });
+});
+
+
+
 //=================================
 //              USERS
 //=================================
