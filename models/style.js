@@ -12,5 +12,5 @@ const styleSchema = mongoose.Schema({
 
 // exports the module, below are basically the same: ==> 
 const Style = mongoose.model('Style', styleSchema);
-module.exports = Style;
+module.exports = { Style };
 // module.exports = mongoose.model('Style', styleSchema);
