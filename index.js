@@ -306,7 +306,15 @@ app.post('/api/users/addToCart',auth,(req,res)=>{
         })
 
         if(duplicate){
-
+            User.findOneAndUpdate(
+                {_id: req.user._id, "cart.id":mongoose.Types.ObjectId(req.query.product)},
+                { $inc: {"cart.$.quantity":1 } },
+                { new: true },
+                ()=>{
+                    if(err) return res.json({success:false, err});
+                    res.status(200).json(doc.cart)
+                }
+            )
         }else {
             User.findOneAndUpdate(
                 {_id: req.user._id},
